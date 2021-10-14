@@ -1,141 +1,184 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DAY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_END_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EXAM_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LESSON_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_LINK_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODULE_CODE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_MODULE_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_VENUE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.RANDOM_TEXT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DAY_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_END_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EXAM_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LESSON_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_LINK_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_CODE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_MODULE_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_START_TIME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_VENUE_DESC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalExams.PHYSICAL_FINALS;
+import static seedu.address.testutil.TypicalExams.PHYSICAL_FINALS_NO_LINK_NO_VENUE;
+import static seedu.address.testutil.TypicalLessons.CS2103T_LECTURE_NO_LINK_NO_VENUE;
+import static seedu.address.testutil.TypicalLessons.CS2103T_LECTURE_WITH_VENUE;
+import static seedu.address.testutil.TypicalModules.CS2103T_CODE_NAME;
+import static seedu.address.testutil.TypicalModules.CS2103T_NO_NAME;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.builders.PersonBuilder;
+import seedu.address.logic.commands.add.AddCommand;
+import seedu.address.logic.commands.add.AddExamCommand;
+import seedu.address.logic.commands.add.AddLessonCommand;
+import seedu.address.logic.commands.add.AddModCommand;
+import seedu.address.model.module.Day;
+import seedu.address.model.module.Link;
+import seedu.address.model.module.ModBookDate;
+import seedu.address.model.module.ModBookTime;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleName;
+import seedu.address.model.module.Venue;
+import seedu.address.model.module.exam.Exam;
+import seedu.address.model.module.exam.ExamName;
+import seedu.address.model.module.lesson.Lesson;
+import seedu.address.model.module.lesson.LessonName;
+import seedu.address.testutil.builders.ExamBuilder;
+import seedu.address.testutil.builders.LessonBuilder;
+import seedu.address.testutil.builders.ModuleBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Module expectedModule = new ModuleBuilder(CS2103T_CODE_NAME).build();
+        ModuleCode expectedModuleCode = expectedModule.getCode();
+        Lesson expectedLesson = new LessonBuilder(CS2103T_LECTURE_WITH_VENUE).build();
+        Exam expectedExam = new ExamBuilder(PHYSICAL_FINALS).build();
 
         // whitespace only preamble
-        assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "mod"
+                + VALID_MODULE_CODE_DESC + VALID_MODULE_NAME_DESC, new AddModCommand(expectedModule));
 
-        // multiple names - last name accepted
-        assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "lesson"
+                + VALID_MODULE_CODE_DESC + VALID_LESSON_NAME_DESC + VALID_DAY_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC + VALID_LINK_DESC
+                + VALID_VENUE_DESC, new AddLessonCommand(expectedModuleCode, expectedLesson));
 
-        // multiple phones - last phone accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
-
-        // multiple emails - last email accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
-
-        // multiple addresses - last address accepted
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_AMY
-                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
-
-        // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
-                .build();
-        assertParseSuccess(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, new AddCommand(expectedPersonMultipleTags));
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "exam"
+                + VALID_MODULE_CODE_DESC + VALID_EXAM_NAME_DESC + VALID_DATE_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC + VALID_LINK_DESC
+                + VALID_VENUE_DESC, new AddExamCommand(expectedModuleCode, expectedExam));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY,
-                new AddCommand(expectedPerson));
+        Module expectedModule = new ModuleBuilder(CS2103T_NO_NAME).build();
+        ModuleCode expectedModuleCode = expectedModule.getCode();
+        Lesson expectedLesson = new LessonBuilder(CS2103T_LECTURE_NO_LINK_NO_VENUE).build();
+        Exam expectedExam = new ExamBuilder(PHYSICAL_FINALS_NO_LINK_NO_VENUE).build();
+
+
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "mod"
+                + VALID_MODULE_CODE_DESC, new AddModCommand(expectedModule));
+
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "lesson"
+                + VALID_MODULE_CODE_DESC + VALID_LESSON_NAME_DESC + VALID_DAY_DESC
+                + VALID_START_TIME_DESC
+                + VALID_END_TIME_DESC, new AddLessonCommand(expectedModuleCode, expectedLesson));
+
+        // whitespace only preamble
+        assertParseSuccess(parser, PREAMBLE_WHITESPACE + "exam"
+                + VALID_MODULE_CODE_DESC + VALID_EXAM_NAME_DESC + VALID_DATE_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC, new AddExamCommand(expectedModuleCode, expectedExam));
     }
 
     @Test
     public void parse_compulsoryFieldMissing_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedModMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModCommand.MESSAGE_USAGE);
+        String expectedLessonMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE);
+        String expectedExamMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExamCommand.MESSAGE_USAGE);
 
-        // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
+        // Invalid add command
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + RANDOM_TEXT , expectedMessage);
 
-        // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
+        // Invalid add mod command
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "mod" + RANDOM_TEXT, expectedModMessage);
 
-        // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + ADDRESS_DESC_BOB,
-                expectedMessage);
+        // Invalid add lesson command
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "lesson" + RANDOM_TEXT, expectedLessonMessage);
 
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
-
-        // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_ADDRESS_BOB,
-                expectedMessage);
+        // Invalid add exam command
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "exam" + RANDOM_TEXT, expectedExamMessage);
     }
 
     @Test
     public void parse_invalidValue_failure() {
-        // invalid name
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+        // invalid Module Code
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "lesson"
+                + INVALID_MODULE_CODE_DESC + VALID_LESSON_NAME_DESC + VALID_DAY_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC, ModuleCode.MESSAGE_CONSTRAINTS);
 
-        // invalid phone
-        assertParseFailure(parser, NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_CONSTRAINTS);
+        // invalid Module Name
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "mod" + VALID_MODULE_CODE_DESC
+                + INVALID_MODULE_NAME_DESC, ModuleName.MESSAGE_CONSTRAINTS);
 
-        // invalid email
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+        // invalid Lesson Name
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "lesson"
+                + VALID_MODULE_CODE_DESC + INVALID_LESSON_NAME_DESC + VALID_DAY_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC, LessonName.MESSAGE_CONSTRAINTS);
 
-        // invalid address
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Address.MESSAGE_CONSTRAINTS);
+        // invalid Exam name
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "exam"
+                + VALID_MODULE_CODE_DESC + INVALID_EXAM_NAME_DESC + VALID_DATE_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC + VALID_LINK_DESC
+                + VALID_VENUE_DESC, ExamName.MESSAGE_CONSTRAINTS);
 
-        // invalid tag
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + ADDRESS_DESC_BOB
-                + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_CONSTRAINTS);
+        // invalid Day
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "lesson"
+                + VALID_MODULE_CODE_DESC + VALID_LESSON_NAME_DESC + INVALID_DAY_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC, Day.MESSAGE_CONSTRAINTS);
 
-        // two invalid values, only first invalid value reported
-        assertParseFailure(parser, INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC,
-                Name.MESSAGE_CONSTRAINTS);
+        // invalid Date
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "exam"
+                + VALID_MODULE_CODE_DESC + VALID_EXAM_NAME_DESC + INVALID_DATE_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC + VALID_LINK_DESC
+                + VALID_VENUE_DESC, ModBookDate.MESSAGE_CONSTRAINTS);
 
-        // non-empty preamble
-        assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
-                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        // invalid Start Time
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "lesson"
+                + VALID_MODULE_CODE_DESC + VALID_LESSON_NAME_DESC + VALID_DAY_DESC
+                + INVALID_START_TIME_DESC + VALID_END_TIME_DESC, ModBookTime.MESSAGE_CONSTRAINTS);
+
+        // invalid End Time
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "lesson"
+                + VALID_MODULE_CODE_DESC + VALID_LESSON_NAME_DESC + VALID_DAY_DESC
+                + VALID_START_TIME_DESC + INVALID_END_TIME_DESC, ModBookTime.MESSAGE_CONSTRAINTS);
+
+        // invalid Link
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "exam"
+                + VALID_MODULE_CODE_DESC + VALID_EXAM_NAME_DESC + VALID_DATE_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC + INVALID_LINK_DESC
+                + VALID_VENUE_DESC, Link.MESSAGE_CONSTRAINTS);
+
+        // invalid Venue
+        assertParseFailure(parser, PREAMBLE_WHITESPACE + "exam"
+                + VALID_MODULE_CODE_DESC + VALID_EXAM_NAME_DESC + VALID_DATE_DESC
+                + VALID_START_TIME_DESC + VALID_END_TIME_DESC + VALID_LINK_DESC
+                + INVALID_VENUE_DESC, Venue.MESSAGE_CONSTRAINTS);
     }
+
 }

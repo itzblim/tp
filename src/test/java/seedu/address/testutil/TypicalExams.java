@@ -15,8 +15,11 @@ public class TypicalExams {
 
     public static final Exam DEFAULT_EXAM = new ExamBuilder().build();
     public static final Exam PHYSICAL_FINALS = new ExamBuilder().withName("Finals").withDate("24/11/2021")
-            .withTimeslot(new TimeslotBuilder().withStartTime("15:00").withEndTime("17:00").build())
-            .withVenue("MPSH 1").build();
+            .withTimeslot(new TimeslotBuilder().withStartTime("16:00").withEndTime("18:00").build())
+            .withLink("profDamith.com").withVenue("COM1").build();
+    public static final Exam PHYSICAL_FINALS_NO_LINK_NO_VENUE = new ExamBuilder()
+            .withName("Finals").withDate("24/11/2021")
+            .withTimeslot(new TimeslotBuilder().withStartTime("16:00").withEndTime("18:00").build()).build();
     public static final Exam PHYSICAL_MIDTERMS = new ExamBuilder().withName("Midterms").withDate("04/10/2021")
             .withTimeslot(new TimeslotBuilder().withStartTime("16:00").withEndTime("17:30").build())
             .withVenue("MPSH 2").build();

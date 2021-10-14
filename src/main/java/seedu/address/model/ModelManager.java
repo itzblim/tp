@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -11,13 +13,18 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exam.Exam;
+import seedu.address.model.module.lesson.Lesson;
 import seedu.address.model.person.Person;
 
 /**
  * Represents the in-memory model of the address book data.
  */
 public class ModelManager implements Model {
+    public static final String MESSAGE_MODULE_DOESNT_EXIST = "The module you chose does not exist";
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -198,6 +205,38 @@ public class ModelManager implements Model {
     public void setModule(Module target, Module editedModule) {
         requireAllNonNull(target, editedModule);
         modBook.setModules(target, editedModule);
+    }
+
+    @Override
+    public Module getModule(ModuleCode modCode) throws CommandException {
+        Optional<Module> module = this.filteredModules.stream().filter(mod ->
+                mod.getCode().equals(modCode)).findAny();
+        if (module.isEmpty()) {
+            throw new CommandException(MESSAGE_MODULE_DOESNT_EXIST);
+        }
+        return module.get();
+    }
+
+    @Override
+    public boolean moduleHasLesson(Module module, Lesson lesson) {
+        List<Lesson> lessons = module.getLessons();
+        return lessons.contains(lesson);
+    }
+
+    @Override
+    public void addLessonToModule(Module module, Lesson lesson) {
+        module.getLessons().add(lesson);
+    }
+
+    @Override
+    public boolean moduleHasExam(Module module, Exam exam) {
+        List<Exam> exams = module.getExams();
+        return exams.contains(exam);
+    }
+
+    @Override
+    public void addExamToModule(Module module, Exam exam) {
+        module.getExams().add(exam);
     }
 
     //=========== Filtered Module List Accessors =============================================================
