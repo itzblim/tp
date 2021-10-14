@@ -3,9 +3,15 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import seedu.address.model.ModBook;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleName;
+import seedu.address.model.module.exam.Exam;
+import seedu.address.model.module.lesson.Lesson;
 import seedu.address.testutil.builders.ModuleBuilder;
 
 /**
@@ -48,7 +54,27 @@ public class TypicalModules {
         return mb;
     }
 
+    /**
+     * Returns a list with all the typical modules.
+     */
     public static List<Module> getTypicalModules() {
-        return new ArrayList<>(Arrays.asList(CS2103T, CS2040S, CS1231S));
+        return new ArrayList<>(Arrays.asList(CS2103T, CS2040S, CS1231S)).
+                stream().map(TypicalModules::getCopyOfModule).
+                collect(Collectors.toList());
+    }
+
+    /**
+     * Returns a copy of a module.
+     */
+    public static Module getCopyOfModule(Module moduleToCopy) {
+        ModuleCode code = new ModuleCode(moduleToCopy.getCode().toString());
+        Optional<ModuleName> name = moduleToCopy.getName().isEmpty()
+                ? Optional.empty()
+                : Optional.of(new ModuleName(moduleToCopy.getName().get().toString()));
+        List<Lesson> lessons = new ArrayList<>();
+        lessons.addAll(moduleToCopy.getLessons());
+        List<Exam> exams = new ArrayList<>();
+        exams.addAll(moduleToCopy.getExams());
+        return new Module(code, name, lessons, exams);
     }
 }
