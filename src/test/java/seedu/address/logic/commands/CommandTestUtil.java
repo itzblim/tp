@@ -4,10 +4,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -41,6 +46,15 @@ public class CommandTestUtil {
     public static final String VALID_TAG_FRIEND = "friend";
 
     public static final String VALID_MODULE_CODE = "CS2103T";
+    public static final String VALID_MODULE_NAME = "Software Engineering";
+    public static final String VALID_LESSON_NAME = "CS2103T Lecture";
+    public static final String VALID_EXAM_NAME = "Finals";
+    public static final String VALID_DAY = "FRIDAY";
+    public static final String VALID_DATE = "24/11/2021";
+    public static final String VALID_START_TIME = "16:00";
+    public static final String VALID_END_TIME = "18:00";
+    public static final String VALID_LINK = "profDamith.com";
+    public static final String VALID_VENUE = "COM1";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -54,14 +68,33 @@ public class CommandTestUtil {
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
     public static final String VALID_MODULE_CODE_DESC = " " + PREFIX_CODE + VALID_MODULE_CODE;
+    public static final String VALID_MODULE_NAME_DESC = " " + PREFIX_NAME + VALID_MODULE_NAME;
+    public static final String VALID_LESSON_NAME_DESC = " " + PREFIX_NAME + VALID_LESSON_NAME;
+    public static final String VALID_EXAM_NAME_DESC = " " + PREFIX_NAME + VALID_EXAM_NAME;
+    public static final String VALID_DAY_DESC = " " + PREFIX_DAY + VALID_DAY;
+    public static final String VALID_DATE_DESC = " " + PREFIX_DAY + VALID_DATE;
+    public static final String VALID_START_TIME_DESC = " " + PREFIX_START + VALID_START_TIME;
+    public static final String VALID_END_TIME_DESC = " " + PREFIX_END + VALID_END_TIME;
+    public static final String VALID_LINK_DESC = " " + PREFIX_LINK + VALID_LINK;
+    public static final String VALID_VENUE_DESC = " " + PREFIX_VENUE + VALID_VENUE;
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
     public static final String INVALID_MODULE_CODE_DESC = " " + PREFIX_CODE + "C2030S";
+    public static final String INVALID_MODULE_NAME_DESC = " " + PREFIX_NAME + "";
+    public static final String INVALID_LESSON_NAME_DESC = " " + PREFIX_NAME + "";
+    public static final String INVALID_EXAM_NAME_DESC = " " + PREFIX_NAME + "";
+    public static final String INVALID_DAY_DESC = " " + PREFIX_DAY + "jupiter";
+    public static final String INVALID_DATE_DESC = " " + PREFIX_DAY + "mon";
+    public static final String INVALID_LINK_DESC = " " + PREFIX_LINK + "";
+    public static final String INVALID_START_TIME_DESC = " " + PREFIX_START + "1000";
+    public static final String INVALID_END_TIME_DESC = " " + PREFIX_END + "1000";
+    public static final String INVALID_VENUE_DESC = " " + PREFIX_VENUE + "";
+
+    public static final String RANDOM_TEXT = " " + "momo";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

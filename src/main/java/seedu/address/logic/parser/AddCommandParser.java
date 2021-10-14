@@ -1,24 +1,36 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DAY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_END;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LINK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_START;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_VENUE;
 
-import java.util.Set;
-import java.util.stream.Stream;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.GuiState;
+import seedu.address.logic.commands.add.AddCommand;
+import seedu.address.logic.commands.add.AddExamCommand;
+import seedu.address.logic.commands.add.AddLessonCommand;
+import seedu.address.logic.commands.add.AddModCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.module.Day;
+import seedu.address.model.module.Link;
+import seedu.address.model.module.ModBookDate;
+import seedu.address.model.module.ModBookTime;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.ModuleName;
+import seedu.address.model.module.Timeslot;
+import seedu.address.model.module.Venue;
+import seedu.address.model.module.exam.Exam;
+import seedu.address.model.module.exam.ExamName;
+import seedu.address.model.module.lesson.Lesson;
+import seedu.address.model.module.lesson.LessonName;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -31,31 +43,123 @@ public class AddCommandParser implements Parser<AddCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddCommand parse(String args, GuiState guiState) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+        String errorMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        Type type = ParserUtil.parseFirstArg(args, errorMessage);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
-                || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        switch(type) {
+        case MOD:
+            return parseMod(args);
+        case LESSON:
+            return parseLesson(args);
+        case EXAM:
+            return parseExam(args);
+        default:
+            throw new ParseException(errorMessage);
         }
-
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-        Person person = new Person(name, phone, email, address, tagList);
-
-        return new AddCommand(person);
     }
 
     /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
+     * Parses the given {@code String} of arguments in the context of the AddModCommand
+     * and returns an AddModCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    public AddModCommand parseMod(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_CODE, PREFIX_NAME);
+
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_CODE)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddModCommand.MESSAGE_USAGE));
+        }
+
+        ModuleCode modCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_CODE).get());
+        Optional<ModuleName> modName;
+        try {
+            modName = Optional.of(ParserUtil.parseModuleName(argMultimap.getValue(PREFIX_NAME).get()));
+        } catch (NoSuchElementException e) {
+            modName = Optional.empty();
+        }
+
+        Module module = new Module(modCode, modName);
+        return new AddModCommand(module);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddLessonCommand
+     * and returns an AddLessonCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AddLessonCommand parseLesson(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_CODE, PREFIX_NAME, PREFIX_DAY, PREFIX_START, PREFIX_END,
+                        PREFIX_LINK, PREFIX_VENUE);
+
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_CODE, PREFIX_NAME, PREFIX_DAY,
+                PREFIX_START, PREFIX_END)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLessonCommand.MESSAGE_USAGE));
+        }
+
+        ModuleCode modCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_CODE).get());
+        LessonName lessonName = ParserUtil.parseLessonName(argMultimap.getValue(PREFIX_NAME).get());
+        Day day = ParserUtil.parseDay(argMultimap.getValue(PREFIX_DAY).get());
+        ModBookTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START).get());
+        ModBookTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END).get());
+        Timeslot timeslot = new Timeslot(startTime, endTime);
+        Optional<Link> link;
+        Optional<Venue> venue;
+
+        try {
+            link = Optional.of(ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get()));
+        } catch (NoSuchElementException e) {
+            link = Optional.empty();
+        }
+
+        try {
+            venue = Optional.of(ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get()));
+        } catch (NoSuchElementException e) {
+            venue = Optional.empty();
+        }
+
+        Lesson lesson = new Lesson(lessonName, day, timeslot, venue, link);
+        return new AddLessonCommand(modCode, lesson);
+    }
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the AddExamCommand
+     * and returns an AddExamCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public AddExamCommand parseExam(String args) throws ParseException {
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_CODE, PREFIX_NAME, PREFIX_DAY, PREFIX_START, PREFIX_END,
+                        PREFIX_LINK, PREFIX_VENUE);
+
+        if (!ParserUtil.arePrefixesPresent(argMultimap, PREFIX_CODE, PREFIX_NAME, PREFIX_DAY,
+                PREFIX_START, PREFIX_END)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddExamCommand.MESSAGE_USAGE));
+        }
+
+        ModuleCode modCode = ParserUtil.parseModuleCode(argMultimap.getValue(PREFIX_CODE).get());
+        ExamName examName = ParserUtil.parseExamName(argMultimap.getValue(PREFIX_NAME).get());
+        ModBookDate date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DAY).get());
+        ModBookTime startTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_START).get());
+        ModBookTime endTime = ParserUtil.parseTime(argMultimap.getValue(PREFIX_END).get());
+        Timeslot timeslot = new Timeslot(startTime, endTime);
+        Optional<Link> link;
+        Optional<Venue> venue;
+
+        try {
+            link = Optional.of(ParserUtil.parseLink(argMultimap.getValue(PREFIX_LINK).get()));
+        } catch (NoSuchElementException e) {
+            link = Optional.empty();
+        }
+
+        try {
+            venue = Optional.of(ParserUtil.parseVenue(argMultimap.getValue(PREFIX_VENUE).get()));
+        } catch (NoSuchElementException e) {
+            venue = Optional.empty();
+        }
+
+        Exam exam = new Exam(examName, date, timeslot, venue, link);
+        return new AddExamCommand(modCode, exam);
+    }
 }

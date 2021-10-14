@@ -5,7 +5,11 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exam.Exam;
+import seedu.address.model.module.lesson.Lesson;
 import seedu.address.model.person.Person;
 
 /**
@@ -123,6 +127,34 @@ public interface Model {
      * {@code module} must not already exist in the address book.
      */
     void addModule(Module module);
+
+    /**
+     * Gets the requested module based on given modCode.
+     * @param modCode Used to find module.
+     * @return Module.
+     * @throws CommandException If module does not exist.
+     */
+    Module getModule(ModuleCode modCode) throws CommandException;
+
+    /**
+     * Checks if a module has the lesson
+     */
+    boolean moduleHasLesson(Module module, Lesson lesson);
+
+    /**
+     * Adds a lesson to a module.
+     */
+    void addLessonToModule(Module module, Lesson lesson);
+
+    /**
+     * Checks if a module has the lesson
+     */
+    boolean moduleHasExam(Module module, Exam exam);
+
+    /**
+     * Adds a lesson to a module.
+     */
+    void addExamToModule(Module module, Exam exam);
 
     /**
      * Replaces the given module {@code target} with {@code editedModule}.
