@@ -58,9 +58,9 @@ public class TypicalModules {
      * Returns a list with all the typical modules.
      */
     public static List<Module> getTypicalModules() {
-        return new ArrayList<>(Arrays.asList(CS2103T, CS2040S, CS1231S)).
-                stream().map(TypicalModules::getCopyOfModule).
-                collect(Collectors.toList());
+        return new ArrayList<>(Arrays.asList(CS2103T, CS2040S, CS1231S))
+                .stream().map(TypicalModules::getCopyOfModule)
+                .collect(Collectors.toList());
     }
 
     /**
