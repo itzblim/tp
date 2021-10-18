@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
@@ -65,5 +67,27 @@ public class ExamTest {
 
         // same date, same time
         assertEquals(EXAM.compareTo(new Exam(EXAM_NAME, DATE, TIMESLOT, VENUE, LINK)), 0);
+    }
+
+    @Test
+    void isFuture() {
+        ModBookDate today = new ModBookDate(LocalDate.now().format(ModBookDate.PRINT_FORMATTER));
+        ModBookDate tomorrow = new ModBookDate(LocalDate.now().plusDays(1).format(ModBookDate.PRINT_FORMATTER));
+        ModBookDate yesterday = new ModBookDate(LocalDate.now().minusDays(1).format(ModBookDate.PRINT_FORMATTER));
+
+        Timeslot oneMinuteFromNow = new Timeslot(
+                new ModBookTime(LocalTime.now().plusMinutes(1).format(ModBookTime.PRINT_FORMATTER)),
+                new ModBookTime(LocalTime.now().plusMinutes(2).format(ModBookTime.PRINT_FORMATTER)));
+        Timeslot oneMinuteAgo = new Timeslot(
+                new ModBookTime(LocalTime.now().minusMinutes(1).format(ModBookTime.PRINT_FORMATTER)),
+                new ModBookTime(LocalTime.now().format(ModBookTime.PRINT_FORMATTER)));
+
+        assertTrue(new Exam(EXAM_NAME, today, oneMinuteFromNow, VENUE, LINK).isFuture());
+        assertTrue(new Exam(EXAM_NAME, tomorrow, oneMinuteFromNow, VENUE, LINK).isFuture());
+        assertTrue(new Exam(EXAM_NAME, tomorrow, oneMinuteAgo, VENUE, LINK).isFuture());
+
+        assertFalse(new Exam(EXAM_NAME, today, oneMinuteAgo, VENUE, LINK).isFuture());
+        assertFalse(new Exam(EXAM_NAME, yesterday, oneMinuteAgo, VENUE, LINK).isFuture());
+        assertFalse(new Exam(EXAM_NAME, yesterday, oneMinuteFromNow, VENUE, LINK).isFuture());
     }
 }

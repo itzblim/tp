@@ -1,7 +1,6 @@
 package t13.modbook.model.module;
 
 import static java.util.Objects.requireNonNull;
-import static t13.modbook.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;

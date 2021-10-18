@@ -103,4 +103,11 @@ class ModBookTimeTest {
         assertEquals(ModBookTime.parseTime("11.30AM"), expectedElevenThirtyAm);
         assertEquals(ModBookTime.parseTime("11.30am"), expectedElevenThirtyAm);
     }
+
+    @Test
+    void isFuture() {
+        assertTrue(new ModBookTime(LocalTime.now().plusMinutes(1).format(ModBookTime.PRINT_FORMATTER)).isFuture());
+        assertFalse(new ModBookTime(LocalTime.now().format(ModBookTime.PRINT_FORMATTER)).isFuture());
+        assertFalse(new ModBookTime(LocalTime.now().minusMinutes(1).format(ModBookTime.PRINT_FORMATTER)).isFuture());
+    }
 }

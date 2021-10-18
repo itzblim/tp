@@ -29,6 +29,8 @@ public class TypicalExams {
     public static final Exam ONLINE_MIDTERMS = new ExamBuilder().withName("Midterms").withDate("05/10/2021")
             .withTimeslot(new TimeslotBuilder().withStartTime("16:00").withEndTime("17:30").build())
             .withLink("midterms.com").build();
+    public static final Exam FUTURE_EXAM = new ExamBuilder().withDate("24/11/3000").build();
+    public static final Exam PAST_EXAM = new ExamBuilder().withDate("24/11/1999").build();
 
     // CS2103T Exams for real-life examples
     public static final Exam CS2103T_PRACTICAL = new ExamBuilder().withName("CS2103T Practical").withDate("12/11/2021")

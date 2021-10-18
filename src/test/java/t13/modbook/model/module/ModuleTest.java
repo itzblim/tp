@@ -1,13 +1,19 @@
 package t13.modbook.model.module;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static t13.modbook.testutil.TypicalExams.FUTURE_EXAM;
+import static t13.modbook.testutil.TypicalExams.PAST_EXAM;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+
+import t13.modbook.model.module.exam.Exam;
+import t13.modbook.model.module.exam.exceptions.ExamNotFoundException;
 
 public class ModuleTest {
     private static final ModuleCode MODULE_CODE = new ModuleCode("CS2103T");
@@ -39,5 +45,22 @@ public class ModuleTest {
 
         // Different code
         assertFalse(MODULE.isSameModule(new Module(new ModuleCode("CS2103"), MODULE_NAME)));
+    }
+
+    @Test
+    void getNextExam() {
+        // Empty exam list
+        ArrayList<Exam> exams = new ArrayList<>();
+        assertThrows(ExamNotFoundException.class, () -> new Module(MODULE_CODE, MODULE_NAME,
+                new ArrayList<>(), exams).getNextExam());
+
+        // Exam list only has an exam that already occurred
+        exams.add(PAST_EXAM);
+        assertThrows(ExamNotFoundException.class, () -> new Module(MODULE_CODE, MODULE_NAME,
+                new ArrayList<>(), exams).getNextExam());
+
+        // Exam list has a future exam
+        exams.add(FUTURE_EXAM);
+        assertEquals(new Module(MODULE_CODE, MODULE_NAME, new ArrayList<>(), exams).getNextExam(), FUTURE_EXAM);
     }
 }

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalTime;
+
 import org.junit.jupiter.api.Test;
 
 import t13.modbook.testutil.TestUtil;
@@ -59,5 +61,15 @@ class TimeslotTest {
 
         // same start and end time
         assertFalse(TestUtil.isBefore(new Timeslot(START_TIME, END_TIME), new Timeslot(START_TIME, END_TIME)));
+    }
+
+    @Test
+    void isFuture() {
+        assertTrue(new Timeslot(new ModBookTime(LocalTime.now().plusMinutes(1).format(ModBookTime.PRINT_FORMATTER)),
+                new ModBookTime(LocalTime.now().plusMinutes(2).format(ModBookTime.PRINT_FORMATTER))).isFuture());
+        assertFalse(new Timeslot(new ModBookTime(LocalTime.now().format(ModBookTime.PRINT_FORMATTER)),
+                new ModBookTime(LocalTime.now().plusMinutes(1).format(ModBookTime.PRINT_FORMATTER))).isFuture());
+        assertFalse(new Timeslot(new ModBookTime(LocalTime.now().minusMinutes(1).format(ModBookTime.PRINT_FORMATTER)),
+                new ModBookTime(LocalTime.now().format(ModBookTime.PRINT_FORMATTER))).isFuture());
     }
 }

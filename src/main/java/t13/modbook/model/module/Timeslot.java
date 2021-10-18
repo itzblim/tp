@@ -28,6 +28,13 @@ public class Timeslot implements Comparable<Timeslot> {
         this.endTime = endTime;
     }
 
+    /**
+     * Checks if starting time is in the future
+     */
+    public boolean isFuture() {
+        return startTime.isFuture();
+    }
+
     public Timeslot deepCopy() {
         return new Timeslot(startTime.deepCopy(), endTime.deepCopy());
     }

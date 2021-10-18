@@ -52,6 +52,20 @@ public class ModBookDate implements Comparable<ModBookDate> {
         }
     }
 
+    /**
+     * Checks if ModBookDate is today
+     */
+    public boolean isToday() {
+        return date.compareTo(LocalDate.now()) == 0;
+    }
+
+    /**
+     * Checks if ModBookDate is in the future
+     */
+    public boolean isFuture() {
+        return date.compareTo(LocalDate.now()) > 0;
+    }
+
     @Override
     public String toString() {
         return date.format(PRINT_FORMATTER);

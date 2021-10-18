@@ -176,7 +176,7 @@ The class diagram of how UI and Logic interact with each other is shown below.
 
 The sequence diagram of how this works for a `delete` command is found below. The objects in `Model` and `Storage` are not shown for simplicity.
 
-![GuiStateSequenceDiagram](images/GuiStateSEquenceDiagram.png)
+![GuiStateSequenceDiagram](images/GuiStateSequenceDiagram.png)
 
 When parsing, the respective `Parser` will check the current `GuiState` with the allowed `GuiState`s. If the `GuiState` is valid, it will proceed with parsing the command.
 Otherwise, it will throw a `GuiStateException`.

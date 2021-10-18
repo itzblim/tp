@@ -7,6 +7,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import t13.modbook.model.module.Module;
+import t13.modbook.model.module.exam.exceptions.ExamNotFoundException;
 
 /**
  * An UI component that displays information of a {@code Module}.
@@ -58,7 +59,11 @@ public class ModuleSummaryCard extends UiPart<Region> {
         if (module.getExams().isEmpty()) {
             nextExam.setText("No exams added");
         } else {
-            nextExam.setText(String.format("Next Exam: %s", module.getNextExam()));
+            try {
+                nextExam.setText(String.format("Next Exam: %s", module.getNextExam()));
+            } catch (ExamNotFoundException e) {
+                nextExam.setText("No upcoming exams");
+            }
         }
     }
 

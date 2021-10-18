@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 public class ModBookDateTest {
@@ -41,5 +43,19 @@ public class ModBookDateTest {
         assertTrue(ModBookDate.isValidDate("09/09/2021"));
         assertTrue(ModBookDate.isValidDate("22/12/2022"));
         assertTrue(ModBookDate.isValidDate("29/05/2024"));
+    }
+
+    @Test
+    void isToday() {
+        assertTrue(new ModBookDate(LocalDate.now().format(ModBookDate.PRINT_FORMATTER)).isToday());
+        assertFalse(new ModBookDate(LocalDate.now().plusDays(1).format(ModBookDate.PRINT_FORMATTER)).isToday());
+        assertFalse(new ModBookDate(LocalDate.now().minusDays(1).format(ModBookDate.PRINT_FORMATTER)).isToday());
+    }
+
+    @Test
+    void isFuture() {
+        assertTrue(new ModBookDate(LocalDate.now().plusDays(1).format(ModBookDate.PRINT_FORMATTER)).isFuture());
+        assertFalse(new ModBookDate(LocalDate.now().format(ModBookDate.PRINT_FORMATTER)).isFuture());
+        assertFalse(new ModBookDate(LocalDate.now().minusDays(1).format(ModBookDate.PRINT_FORMATTER)).isFuture());
     }
 }
