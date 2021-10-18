@@ -11,7 +11,7 @@ import t13.modbook.model.module.exam.Exam;
 import t13.modbook.model.module.lesson.Lesson;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the mod-book level
  * Duplicates are not allowed (by .isSameModule comparison)
  */
 public class ModBook implements ReadOnlyModBook {
@@ -50,8 +50,8 @@ public class ModBook implements ReadOnlyModBook {
 
     /**
      * Replaces the given module {@code target} in the list with {@code editedModule}.
-     * {@code target} must exist in the address book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
+     * {@code target} must exist in the mod book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the mod book.
      */
     public void setModules(Module target, Module editedModule) {
         requireNonNull(editedModule);
@@ -71,7 +71,7 @@ public class ModBook implements ReadOnlyModBook {
     //// module-level operations
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the address book.
+     * Returns true if a module with the same identity as {@code module} exists in the mod book.
      */
     public boolean hasModule(Module module) {
         requireNonNull(module);
@@ -79,7 +79,7 @@ public class ModBook implements ReadOnlyModBook {
     }
 
     /**
-     * Adds a module to the address book.
+     * Adds a module to the mod book.
      * The module must not already exist in the mod book.
      */
     public void addModule(Module module) {

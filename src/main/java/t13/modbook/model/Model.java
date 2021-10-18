@@ -58,19 +58,19 @@ public interface Model {
     ReadOnlyModBook getModBook();
 
     /**
-     * Returns true if a module with the same identity as {@code module} exists in the address book.
+     * Returns true if a module with the same identity as {@code module} exists in the mod book.
      */
     boolean hasModule(Module module);
 
     /**
      * Deletes the given module.
-     * The module must exist in the address book.
+     * The module must exist in the mod book.
      */
     void deleteModule(Module module);
 
     /**
      * Adds the given module.
-     * {@code module} must not already exist in the address book.
+     * {@code module} must not already exist in the mod book.
      */
     void addModule(Module module);
 
@@ -114,8 +114,8 @@ public interface Model {
 
     /**
      * Replaces the given module {@code target} with {@code editedModule}.
-     * {@code target} must exist in the address book.
-     * The module identity of {@code editedModule} must not be the same as another existing module in the address book.
+     * {@code target} must exist in the mod book.
+     * The module identity of {@code editedModule} must not be the same as another existing module in the mod book.
      */
     void setModule(Module target, Module editedModule);
 

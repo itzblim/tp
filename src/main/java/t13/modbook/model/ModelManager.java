@@ -21,7 +21,7 @@ import t13.modbook.model.module.lesson.Lesson;
 import t13.modbook.commons.util.CollectionUtil;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the mod book data.
  */
 public class ModelManager implements Model {
     public static final String MESSAGE_MODULE_DOESNT_EXIST = "The module you chose does not exist";
@@ -99,8 +99,7 @@ public class ModelManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return modBook.equals(other.modBook)
-                && userPrefs.equals(other.userPrefs)
-                && filteredModules.equals(other.filteredModules);
+                && userPrefs.equals(other.userPrefs);
     }
 
     //=========== ModBook ================================================================================

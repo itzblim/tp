@@ -63,8 +63,8 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void setModBookFilePath_validPath_setsAddressBookFilePath() {
-        Path path = Paths.get("address/book/file/path");
+    public void setModBookFilePath_validPath_setsModBookFilePath() {
+        Path path = Paths.get("mod/book/file/path");
         modelManager.setModBookFilePath(path);
         assertEquals(path, modelManager.getModBookFilePath());
     }

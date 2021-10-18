@@ -3,7 +3,7 @@ package t13.modbook.logic.commands.add;
 import t13.modbook.logic.commands.Command;
 
 /**
- * Adds a module, lesson or exam to the address book.
+ * Adds a module, lesson or exam to the mod book.
  */
 public abstract class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
