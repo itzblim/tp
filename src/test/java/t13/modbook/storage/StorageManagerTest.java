@@ -11,12 +11,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import t13.modbook.commons.core.GuiSettings;
-import seedu.modbook.model.AddressBook;
 import t13.modbook.model.ModBook;
-import seedu.modbook.model.ReadOnlyAddressBook;
 import t13.modbook.model.ReadOnlyModBook;
 import t13.modbook.model.UserPrefs;
-import t13.modbook.testutil.TypicalPersons;
 
 public class StorageManagerTest {
 
@@ -27,10 +24,9 @@ public class StorageManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(getTempFilePath("ab"));
         JsonModBookStorage modBookStorage = new JsonModBookStorage(getTempFilePath("mb"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, modBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(modBookStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
@@ -49,24 +45,6 @@ public class StorageManagerTest {
         storageManager.saveUserPrefs(original);
         UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
-    }
-
-    @Test
-    public void addressBookReadSave() throws Exception {
-        /*
-         * Note: This is an integration test that verifies the StorageManager is properly wired to the
-         * {@link JsonAddressBookStorage} class.
-         * More extensive testing of UserPref saving/reading is done in {@link JsonAddressBookStorageTest} class.
-         */
-        AddressBook original = TypicalPersons.getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
-        assertEquals(original, new AddressBook(retrieved));
-    }
-
-    @Test
-    public void getAddressBookFilePath() {
-        assertNotNull(storageManager.getAddressBookFilePath());
     }
 
     @Test
