@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 
 import t13.modbook.commons.core.index.Index;
 import t13.modbook.model.Model;
-import seedu.modbook.model.person.Person;
+import t13.modbook.model.module.Module;
 
 /**
  * A utility class for test cases.
@@ -33,24 +33,24 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the  module in the {@code model}'s  module list.
      */
     public static Index getMidIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
+        return Index.fromOneBased(model.getFilteredModuleList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the  module in the {@code model}'s  module list.
      */
     public static Index getLastIndex(Model model) {
-        return Index.fromOneBased(model.getFilteredPersonList().size());
+        return Index.fromOneBased(model.getFilteredModuleList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the  module in the {@code model}'s module list at {@code index}.
      */
-    public static Person getPerson(Model model, Index index) {
-        return model.getFilteredPersonList().get(index.getZeroBased());
+    public static Module getModule(Model model, Index index) {
+        return model.getFilteredModuleList().get(index.getZeroBased());
     }
 
     /**

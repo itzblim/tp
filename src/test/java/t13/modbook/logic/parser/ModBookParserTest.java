@@ -31,7 +31,7 @@ import t13.modbook.model.module.Module;
 import seedu.modbook.model.person.NameContainsKeywordsPredicate;
 import seedu.modbook.model.person.Person;
 import t13.modbook.testutil.EditPersonDescriptorBuilder;
-import t13.modbook.testutil.PersonUtil;
+import t13.modbook.testutil.ModuleUtil;
 import t13.modbook.testutil.builders.ModuleBuilder;
 import t13.modbook.testutil.builders.PersonBuilder;
 import t13.modbook.testutil.Assert;
@@ -46,7 +46,7 @@ public class ModBookParserTest {
     @Test
     public void parseCommand_add() throws Exception {
         Module module = new ModuleBuilder().build();
-        AddModCommand command = (AddModCommand) parser.parseCommand(PersonUtil.getAddCommand(module), DEFAULT_STATE);
+        AddModCommand command = (AddModCommand) parser.parseCommand(ModuleUtil.getAddCommand(module), DEFAULT_STATE);
         assertEquals(new AddModCommand(module), command);
     }
 
@@ -81,7 +81,7 @@ public class ModBookParserTest {
         Person person = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor),
+                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " " + ModuleUtil.getEditPersonDescriptorDetails(descriptor),
                 DEFAULT_STATE);
         assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
     }
