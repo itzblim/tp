@@ -1,7 +1,5 @@
 package teethirteen.modbook.logic.commands;
 
-import static teethirteen.modbook.logic.commands.CommandTestUtil.assertCommandSuccess;
-
 import org.junit.jupiter.api.Test;
 
 import teethirteen.modbook.model.Model;

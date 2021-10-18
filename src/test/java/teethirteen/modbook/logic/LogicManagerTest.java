@@ -13,9 +13,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import teethirteen.modbook.logic.commands.ClearCommand;
 import teethirteen.modbook.logic.commands.CommandResult;
+import teethirteen.modbook.logic.commands.CommandTestUtil;
 import teethirteen.modbook.logic.commands.GuiState;
 import teethirteen.modbook.logic.commands.add.AddCommand;
 import teethirteen.modbook.logic.commands.exceptions.CommandException;
+import teethirteen.modbook.logic.parser.CliSyntax;
 import teethirteen.modbook.logic.parser.exceptions.ParseException;
 import teethirteen.modbook.model.Model;
 import teethirteen.modbook.model.ModelManager;
@@ -26,9 +28,7 @@ import teethirteen.modbook.storage.JsonModBookStorage;
 import teethirteen.modbook.storage.JsonUserPrefsStorage;
 import teethirteen.modbook.storage.StorageManager;
 import teethirteen.modbook.testutil.builders.ModuleBuilder;
-import teethirteen.modbook.logic.commands.CommandTestUtil;
 import teethirteen.modbook.testutil.Assert;
-import teethirteen.modbook.logic.parser.CliSyntax;
 
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy exception");

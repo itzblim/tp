@@ -41,8 +41,8 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() {
-        Assert.assertThrows(DataConversionException.class,
-                () -> readUserPrefs("NotJsonFormatUserPrefs.json"));
+        Assert.assertThrows(DataConversionException.class, () -> readUserPrefs(
+                "NotJsonFormatUserPrefs.json"));
     }
 
     private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
@@ -81,14 +81,12 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void savePrefs_nullPrefs_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> saveUserPrefs(null, "SomeFile.json"));
+        Assert.assertThrows(NullPointerException.class, () -> saveUserPrefs(null, "SomeFile.json"));
     }
 
     @Test
     public void saveUserPrefs_nullFilePath_throwsNullPointerException() {
-        Assert.assertThrows(NullPointerException.class,
-                () -> saveUserPrefs(new UserPrefs(), null));
+        Assert.assertThrows(NullPointerException.class, () -> saveUserPrefs(new UserPrefs(), null));
     }
 
     /**

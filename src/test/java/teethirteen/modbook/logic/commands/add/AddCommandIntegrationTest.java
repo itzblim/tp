@@ -12,11 +12,11 @@ import teethirteen.modbook.model.module.Module;
 import teethirteen.modbook.model.module.ModuleCode;
 import teethirteen.modbook.model.module.exam.Exam;
 import teethirteen.modbook.model.module.lesson.Lesson;
+import teethirteen.modbook.testutil.TypicalModules;
 import teethirteen.modbook.testutil.builders.ExamBuilder;
 import teethirteen.modbook.testutil.builders.LessonBuilder;
 import teethirteen.modbook.testutil.builders.ModuleBuilder;
 import teethirteen.modbook.logic.commands.CommandTestUtil;
-import teethirteen.modbook.testutil.TypicalModules;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
