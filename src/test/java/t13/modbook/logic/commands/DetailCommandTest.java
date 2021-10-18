@@ -19,14 +19,13 @@ import t13.modbook.model.UserPrefs;
 import t13.modbook.model.module.ModuleCode;
 import t13.modbook.model.module.predicates.HasModuleCodePredicate;
 import t13.modbook.commons.core.Messages;
-import t13.modbook.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code DetailCommand}
  */
 public class DetailCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), getTypicalModBook(), new UserPrefs());
-    private Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), getTypicalModBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalModBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalModBook(), new UserPrefs());
 
     @Test
     public void equals() {

@@ -13,7 +13,6 @@ import t13.modbook.model.ModelManager;
 import t13.modbook.model.UserPrefs;
 import t13.modbook.logic.commands.CommandTestUtil;
 import t13.modbook.testutil.TypicalIndexes;
-import t13.modbook.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListModCommand.
@@ -25,8 +24,8 @@ public class ListModCommandTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPersons.getTypicalAddressBook(), getTypicalModBook(), new UserPrefs());
-        expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), getTypicalModBook(), new UserPrefs());
+        model = new ModelManager(getTypicalModBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalModBook(), new UserPrefs());
     }
 
     @Test

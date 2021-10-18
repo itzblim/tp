@@ -17,14 +17,13 @@ import t13.modbook.model.module.exam.Exam;
 import t13.modbook.logic.commands.CommandTestUtil;
 import t13.modbook.testutil.TypicalIndexes;
 import t13.modbook.testutil.TypicalModules;
-import t13.modbook.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteExamCommand}.
  */
 public class DeleteExamCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), TypicalModules.getTypicalModBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalModules.getTypicalModBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -34,7 +33,7 @@ public class DeleteExamCommandTest {
         DeleteCommand deleteExamCommand = new DeleteExamCommand(TypicalIndexes.INDEX_FIRST_EXAM, targetModule.getCode());
         String expectedMessage = String.format(DeleteExamCommand.MESSAGE_DELETE_EXAM_SUCCESS,
                 examToDelete.getName(), targetModule.getCode());
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.deleteExam(targetModule, examToDelete);
         assertCommandSuccess(deleteExamCommand, model, expectedMessage, expectedModel);
     }
@@ -55,7 +54,7 @@ public class DeleteExamCommandTest {
         DeleteCommand deleteExamCommand = new DeleteExamCommand(TypicalIndexes.INDEX_FIRST_EXAM, targetModule.getCode());
         String expectedMessage = String.format(DeleteExamCommand.MESSAGE_DELETE_EXAM_SUCCESS, examToDelete.getName(),
                 targetModule.getCode());
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.deleteExam(targetModule, examToDelete);
         showNoModule(expectedModel);
         assertCommandSuccess(deleteExamCommand, model, expectedMessage, expectedModel);

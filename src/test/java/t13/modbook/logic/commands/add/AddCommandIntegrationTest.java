@@ -17,7 +17,6 @@ import t13.modbook.testutil.builders.LessonBuilder;
 import t13.modbook.testutil.builders.ModuleBuilder;
 import t13.modbook.logic.commands.CommandTestUtil;
 import t13.modbook.testutil.TypicalModules;
-import t13.modbook.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddCommand}.
@@ -28,14 +27,14 @@ public class AddCommandIntegrationTest {
 
     @BeforeEach
     public void setUp() {
-        model = new ModelManager(TypicalPersons.getTypicalAddressBook(), TypicalModules.getTypicalModBook(), new UserPrefs());
+        model = new ModelManager(TypicalModules.getTypicalModBook(), new UserPrefs());
     }
 
     @Test
     public void execute_newModule_success() {
         Module validModule = new ModuleBuilder().withCode("CS0202").build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.addModule(validModule);
 
         assertCommandSuccess(new AddModCommand(validModule), model,
@@ -48,7 +47,7 @@ public class AddCommandIntegrationTest {
         Module validModule = new ModuleBuilder().build();
         ModuleCode validModuleCode = validModule.getCode();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.addLessonToModule(validModule, validLesson);
 
         CommandTestUtil.assertCommandSuccess(new AddLessonCommand(validModuleCode, validLesson), model,
@@ -61,7 +60,7 @@ public class AddCommandIntegrationTest {
         Module validModule = new ModuleBuilder().build();
         ModuleCode validModuleCode = validModule.getCode();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.addExamToModule(validModule, validExam);
 
         CommandTestUtil.assertCommandSuccess(new AddExamCommand(validModuleCode, validExam), model,

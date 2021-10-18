@@ -9,7 +9,6 @@ import t13.modbook.model.ModBook;
 import t13.modbook.model.Model;
 import t13.modbook.model.ModelManager;
 import t13.modbook.model.UserPrefs;
-import t13.modbook.testutil.TypicalPersons;
 
 public class ClearCommandTest {
 
@@ -23,8 +22,8 @@ public class ClearCommandTest {
 
     @Test
     public void execute_nonEmptyAddressBook_success() {
-        Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), getTypicalModBook(), new UserPrefs());
-        Model expectedModel = new ModelManager(TypicalPersons.getTypicalAddressBook(), getTypicalModBook(), new UserPrefs());
+        Model model = new ModelManager(getTypicalModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(getTypicalModBook(), new UserPrefs());
         expectedModel.setModBook(new ModBook());
 
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);

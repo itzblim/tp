@@ -3,7 +3,6 @@ package t13.modbook.logic.commands.add;
 import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static t13.modbook.testutil.Assert.assertThrows;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -18,14 +17,12 @@ import t13.modbook.logic.commands.CommandResult;
 import t13.modbook.logic.commands.exceptions.CommandException;
 import t13.modbook.model.ModBook;
 import t13.modbook.model.Model;
-import seedu.modbook.model.ReadOnlyAddressBook;
 import t13.modbook.model.ReadOnlyModBook;
 import t13.modbook.model.ReadOnlyUserPrefs;
 import t13.modbook.model.module.Module;
 import t13.modbook.model.module.ModuleCode;
 import t13.modbook.model.module.exam.Exam;
 import t13.modbook.model.module.lesson.Lesson;
-import seedu.modbook.model.person.Person;
 import t13.modbook.testutil.builders.LessonBuilder;
 import t13.modbook.testutil.builders.ModuleBuilder;
 import t13.modbook.testutil.Assert;
@@ -114,16 +111,6 @@ public class AddLessonCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
         public void addModule(Module module) {
             throw new AssertionError("This method should not be called.");
         }
@@ -150,46 +137,6 @@ public class AddLessonCommandTest {
 
         @Override
         public void addExamToModule(Module module, Exam exam) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setAddressBook(ReadOnlyAddressBook newData) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public boolean hasPerson(Person person) {
-            return false;
-        }
-
-        @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void addPerson(Person person) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public void setPerson(Person target, Person editedPerson) {
-            throw new AssertionError("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            return null;
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -17,14 +17,13 @@ import t13.modbook.model.module.lesson.Lesson;
 import t13.modbook.logic.commands.CommandTestUtil;
 import t13.modbook.testutil.TypicalIndexes;
 import t13.modbook.testutil.TypicalModules;
-import t13.modbook.testutil.TypicalPersons;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
  * {@code DeleteLessonCommand}.
  */
 public class DeleteLessonCommandTest {
-    private Model model = new ModelManager(TypicalPersons.getTypicalAddressBook(), TypicalModules.getTypicalModBook(), new UserPrefs());
+    private Model model = new ModelManager(TypicalModules.getTypicalModBook(), new UserPrefs());
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
@@ -33,7 +32,7 @@ public class DeleteLessonCommandTest {
         DeleteCommand deleteLessonCommand = new DeleteLessonCommand(TypicalIndexes.INDEX_FIRST_LESSON, targetModule.getCode());
         String expectedMessage = String.format(DeleteLessonCommand.MESSAGE_DELETE_LESSON_SUCCESS,
                 lessonToDelete.getName(), targetModule.getCode());
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.deleteLesson(targetModule, lessonToDelete);
         assertCommandSuccess(deleteLessonCommand, model, expectedMessage, expectedModel);
     }
@@ -54,7 +53,7 @@ public class DeleteLessonCommandTest {
         DeleteCommand deleteLessonCommand = new DeleteLessonCommand(TypicalIndexes.INDEX_FIRST_LESSON, targetModule.getCode());
         String expectedMessage = String.format(DeleteLessonCommand.MESSAGE_DELETE_LESSON_SUCCESS,
                 lessonToDelete.getName(), targetModule.getCode());
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         expectedModel.deleteLesson(targetModule, lessonToDelete);
         assertCommandSuccess(deleteLessonCommand, model, expectedMessage, expectedModel);
     }
