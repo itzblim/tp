@@ -5,19 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static t13.modbook.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static t13.modbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static t13.modbook.logic.parser.CliSyntax.PREFIX_CODE;
-import static t13.modbook.testutil.Assert.assertThrows;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
 import t13.modbook.logic.commands.ClearCommand;
-import seedu.modbook.logic.commands.EditCommand;
-import seedu.modbook.logic.commands.EditCommand.EditPersonDescriptor;
 import t13.modbook.logic.commands.ExitCommand;
-import seedu.modbook.logic.commands.FindCommand;
 import t13.modbook.logic.commands.GuiState;
 import t13.modbook.logic.commands.HelpCommand;
 import t13.modbook.logic.commands.add.AddModCommand;
@@ -28,12 +20,8 @@ import t13.modbook.logic.commands.delete.DeleteModCommand;
 import t13.modbook.logic.commands.list.ListCommand;
 import t13.modbook.logic.parser.exceptions.ParseException;
 import t13.modbook.model.module.Module;
-import seedu.modbook.model.person.NameContainsKeywordsPredicate;
-import seedu.modbook.model.person.Person;
-import t13.modbook.testutil.EditPersonDescriptorBuilder;
 import t13.modbook.testutil.ModuleUtil;
 import t13.modbook.testutil.builders.ModuleBuilder;
-import t13.modbook.testutil.builders.PersonBuilder;
 import t13.modbook.testutil.Assert;
 import t13.modbook.testutil.TypicalIndexes;
 
@@ -77,28 +65,9 @@ public class ModBookParserTest {
     }
 
     @Test
-    public void parseCommand_edit() throws Exception {
-        Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
-        EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
-                + TypicalIndexes.INDEX_FIRST_PERSON.getOneBased() + " " + ModuleUtil.getEditPersonDescriptorDetails(descriptor),
-                DEFAULT_STATE);
-        assertEquals(new EditCommand(TypicalIndexes.INDEX_FIRST_PERSON, descriptor), command);
-    }
-
-    @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD, DEFAULT_STATE) instanceof ExitCommand);
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3", DEFAULT_STATE) instanceof ExitCommand);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")),
-                DEFAULT_STATE);
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

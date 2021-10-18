@@ -1,8 +1,5 @@
 package t13.modbook.logic.parser;
 
-import static t13.modbook.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static t13.modbook.logic.parser.CommandParserTestUtil.assertParseSuccess;
-
 import org.junit.jupiter.api.Test;
 
 import t13.modbook.logic.commands.DetailCommand;

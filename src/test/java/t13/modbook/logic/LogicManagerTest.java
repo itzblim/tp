@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static t13.modbook.commons.core.Messages.MESSAGE_INVALID_MODULE_DISPLAYED_INDEX;
 import static t13.modbook.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static t13.modbook.logic.parser.CliSyntax.PREFIX_CODE;
-import static t13.modbook.testutil.Assert.assertThrows;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -21,11 +20,9 @@ import t13.modbook.logic.commands.exceptions.CommandException;
 import t13.modbook.logic.parser.exceptions.ParseException;
 import t13.modbook.model.Model;
 import t13.modbook.model.ModelManager;
-import seedu.modbook.model.ReadOnlyAddressBook;
 import t13.modbook.model.ReadOnlyModBook;
 import t13.modbook.model.UserPrefs;
 import t13.modbook.model.module.Module;
-import seedu.modbook.storage.JsonAddressBookStorage;
 import t13.modbook.storage.JsonModBookStorage;
 import t13.modbook.storage.JsonUserPrefsStorage;
 import t13.modbook.storage.StorageManager;
@@ -45,12 +42,10 @@ public class LogicManagerTest {
 
     @BeforeEach
     public void setUp() {
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookStorage(temporaryFolder.resolve("addressBook.json"));
         JsonModBookStorage modBookStorage =
                 new JsonModBookStorage(temporaryFolder.resolve("modBook.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, modBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(modBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -74,14 +69,12 @@ public class LogicManagerTest {
 
     @Test
     public void execute_storageThrowsIoException_throwsCommandException() {
-        // Setup LogicManager with JsonAddressBookIoExceptionThrowingStub
-        JsonAddressBookStorage addressBookStorage =
-                new JsonAddressBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionAddressBook.json"));
+        // Setup LogicManager with JsonModBookIoExceptionThrowingStub
         JsonModBookStorage modBookStorage =
                 new JsonModBookIoExceptionThrowingStub(temporaryFolder.resolve("ioExceptionModBook.json"));
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ioExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, modBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(modBookStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Execute add command
@@ -146,7 +139,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage) {
-        Model expectedModel = new ModelManager(model.getAddressBook(), model.getModBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getModBook(), new UserPrefs());
         assertCommandFailure(inputCommand, expectedException, expectedMessage, expectedModel);
     }
 
@@ -173,20 +166,6 @@ public class LogicManagerTest {
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
             String expectedMessage, Model expectedModel) {
         assertCommandFailure(inputCommand, DEFAULT_STATE, expectedException, expectedMessage, expectedModel);
-    }
-
-    /**
-     * A stub class to throw an {@code IOException} when the save method is called.
-     */
-    private static class JsonAddressBookIoExceptionThrowingStub extends JsonAddressBookStorage {
-        private JsonAddressBookIoExceptionThrowingStub(Path filePath) {
-            super(filePath);
-        }
-
-        @Override
-        public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
-            throw DUMMY_IO_EXCEPTION;
-        }
     }
 
     /**
