@@ -15,4 +15,5 @@ public class Messages {
     public static final String MESSAGE_INVALID_MODULE_DISPLAYED_INDEX = "The module index provided is invalid";
     public static final String MESSAGE_INVALID_LESSON_DISPLAYED_INDEX = "The lesson index provided is invalid";
     public static final String MESSAGE_INVALID_EXAM_DISPLAYED_INDEX = "The exam index provided is invalid";
+    public static final String MESSAGE_EMPTY_MODULE_LIST = "No Modules in List :(";
 }

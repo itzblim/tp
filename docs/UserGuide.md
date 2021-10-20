@@ -10,7 +10,7 @@ faster than traditional GUI apps.
   - [Table of Contents](#table-of-contents)
   - [Quick Start](#quick-start)
   - [Features](#features)
-    - [Notes about the command format:](#notes-about-the-command-format)
+    - [Notes about commands](#notes-about-commands)
     - [Modules](#modules)
       - [Adding a module: `add mod`](#adding-a-module-add-mod)
       - [Listing all modules : `list mod`](#listing-all-modules--list-mod)
@@ -38,15 +38,16 @@ faster than traditional GUI apps.
   - [Command Summary](#command-summary)
     - [Command Summary by Action](#command-summary-by-action)
     - [Command Summary by Object](#command-summary-by-object)
+    - [Command Summary by Screen](#command-summary-by-screen)
 
 ## Quick Start
 
 1. Ensure you have Java 11 or above installed in your Computer.
-1. Download the latest modbook.jar from here.
-1. Copy the file to the folder you want to use as the home folder for your ModBook.
-1. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
+2. Download the latest modbook.jar from here.
+3. Copy the file to the folder you want to use as the home folder for your ModBook.
+4. Double-click the file to start the app. The GUI similar to the below should appear in a few seconds. Note how the app
    contains some sample data
-1. Try out some example commands:
+5. Try out some example commands:
 
 - `list mod`: Lists all modules.
 - `add mod c/CS2103T n/Software Engineering`: Adds a module with code CS2103T, named Software Engineering.
@@ -54,11 +55,11 @@ faster than traditional GUI apps.
 - `clear`: Deletes all modules.
 - `exit`: Exits the app.
 
-1. Refer to the Features below for details of each command.
+6. Refer to the Features below for details of each command.
 
 ## Features
 
-### Notes about the command format:
+### Notes about commands
 
 - Words in UPPER_CASE are the parameters to be supplied by the user. e.g. in add `c/CODE`, `CODE` is a parameter which
   can be used as `add mod c/CS2103T`.
@@ -69,29 +70,40 @@ faster than traditional GUI apps.
   the parameter will be taken. e.g. if you specify `p/12341234 p/56785678`, only `p/56785678` will be taken.
 - Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be
   ignored. e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+- Some commands such as `delete` and `edit` can only be executed from certain screens. These requirements will be 
+  further explained in the descriptions of the commands below. A summary of requirements is also provided in
+  the `Command Summary by Screen` table under `Command Summary` below.
 
 ### Modules
 
 #### Adding a module: `add mod`
 
-Adds a module to the ModBook. Format: `add mod c/CODE [n/NAME]`
+Adds a module to the ModBook. This command can be executed in any screen.
+
+Format: `add mod c/CODE [n/NAME]`
 
 - Example: `add mod c/CS2103T n/Software Engineering` : Adds a module with code CS2103T, named Software Engineering.
 
 #### Listing all modules : `list mod`
 
-Shows a list of all modules in the ModBook. Format: `list mod`
+Shows a list of all modules in the ModBook. This command can be executed in any screen.
+
+Format: `list mod`
 
 #### Show details of a module: `detail`
 
 Show details of an existing module in the ModBook. A list of all Lessons and Exams of the specified Module is printed.
+This command can be executed in any screen.
+
 Format: `detail c/CODE`
 
 - Example: `detail c/CS2103T` : Shows details for the CS2103T module.
 
 #### Editing a module: `edit mod`
 
-Edits an existing module in the ModBook. Format: `edit mod INDEX [c/NEW_CODE] [n/NEW_NAME]`
+Edits an existing module in the ModBook. This command can only be executed in the modules screen.
+
+Format: `edit mod INDEX [c/NEW_CODE] [n/NEW_NAME]`
 
 - Edits the module at the specified `INDEX`. The index refers to the index number shown in the displayed module list.
   The index must be a positive integer 1, 2, 3, …​
@@ -102,7 +114,9 @@ Edits an existing module in the ModBook. Format: `edit mod INDEX [c/NEW_CODE] [n
 
 #### Delete a module: `delete mod`
 
-Deletes a module from the ModBook Format: `delete mod INDEX`
+Deletes a module from the ModBook.  This command can only be executed in the modules screen.
+
+Format: `delete mod INDEX`
 
 - Deletes the person at the specified INDEX.
 - The index refers to the index number shown in the displayed person list.
@@ -112,7 +126,8 @@ Deletes a module from the ModBook Format: `delete mod INDEX`
 
 #### Adding a lesson: `add lesson`
 
-Adds a lesson to the ModBook.
+Adds a lesson to the ModBook. This command can be executed in any screen.
+
 Format: `add lesson c/CODE n/NAME d/DAY_OF_WEEK s/START_TIME e/END_TIME [l/LINK] [v/VENUE]`
 
 - Examples:
@@ -121,11 +136,14 @@ Format: `add lesson c/CODE n/NAME d/DAY_OF_WEEK s/START_TIME e/END_TIME [l/LINK]
 
 #### Listing all lessons : `list lesson`
 
-Shows a list of all lessons in the ModBook. Format: `list lesson`
+Shows a list of all lessons in the ModBook. This command can be executed in any screen.
+
+Format: `list lesson`
 
 #### Editing a lesson: `edit lesson`
 
-Edits an existing lesson in the ModBook.
+Edits an existing lesson in the ModBook. This command can only be executed in the details screen.
+
 Format: `edit lesson INDEX [n/NEW_NAME] [d/NEW_DAY_OF_WEEK] [s/NEW_START_TIME] [e/NEW_END_TIME] [l/NEW_LINK] [v/NEW_VENUE]`
 
 Examples:
@@ -135,7 +153,8 @@ Examples:
 
 #### Deleting a lesson: `delete lesson`
 
-Deletes a lesson from the ModBook
+Deletes a lesson from the ModBook. This command can only be executed in the details screen.
+
 Format: `delete lesson`
 
 - Deletes the lesson at the specified INDEX.
@@ -150,7 +169,9 @@ Examples:
 
 #### Adding an exam: `add exam`
 
-Adds an exam to the ModBook. Format: `add exam c/CODE n/NAME d/DATE s/START_TIME e/END_TIME [l/LINK] [v/VENUE]`
+Adds an exam to the ModBook. This command can be executed in any screen.
+
+Format: `add exam c/CODE n/NAME d/DATE s/START_TIME e/END_TIME [l/LINK] [v/VENUE]`
 
 - Examples:
   `add exam c/CS2103T n/Final Exam d/31/12/2022 s/2100 e/2200 l/https://www.latlmes.com/breaking/click-this-link-for-exam-link-1`:
@@ -158,11 +179,14 @@ Adds an exam to the ModBook. Format: `add exam c/CODE n/NAME d/DATE s/START_TIME
 
 #### Listing all Exams : `list exam`
 
-Shows a list of all lessons in the ModBook. Format: `list exam`
+Shows a list of all lessons in the ModBook. This command can be executed in any screen.
+
+Format: `list exam`
 
 #### Editing an Exam: `edit exam`
 
-Edits an existing exam in the ModBook.
+Edits an existing exam in the ModBook. This command can only be executed in the details screen.
+
 Format: `edit exam 3 [n/NEW_NAME] [d/NEW_DATE] [s/NEW_START_TIME] [e/NEW_END_TIME] [l/NEW_LINK] [v/NEW_VENUE]`
 
 - Examples:
@@ -171,7 +195,8 @@ Format: `edit exam 3 [n/NEW_NAME] [d/NEW_DATE] [s/NEW_START_TIME] [e/NEW_END_TIM
 
 #### Deleting an Exam : `delete exam`
 
-Deletes the specified Exam from the ModBook.
+Deletes the specified Exam from the ModBook. This command can only be executed in the details screen.
+
 Format: `delete exam INDEX`
 
 - Deletes the Exam at the specified INDEX.
@@ -279,3 +304,12 @@ The meaning of the symbols in the formats specified are in the table below:
 | Help   |        | `help`                                                                                                              |
 | Clear  |        | `clear`                                                                                                             |
 | Exit   |        | `exit`                                                                                                              |
+
+### Command Summary by Screen
+
+| Screen  | Commands                                                                                                                                     |
+|---------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| Modules | `add mod`<br>`add lesson`<br>`add exam`<br>`edit mod`<br>`delete mod`<br>`clear`<br>`list`<br>`detail`                                       |
+| Lessons | `add mod`<br>`add lesson`<br>`add exam`<br>`clear`<br>`list`<br>`detail`                                                                     |
+| Exams   | `add mod`<br>`add lesson`<br>`add exam`<br>`clear`<br>`list`<br>`detail`                                                                     |
+| Details | `add mod`<br>`add lesson`<br>`add exam`<br>`edit lesson`<br>`edit exam`<br>`delete lesson`<br>`delete exam`<br>`clear`<br>`list`<br>`detail` |
