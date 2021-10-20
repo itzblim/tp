@@ -360,9 +360,9 @@ Priorities: High (must have) - `***`, Medium (nice to have) - `**`, Low (unlikel
 Use case ends.
 
 **Extensions**
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: Add a lesson**
@@ -375,10 +375,10 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: Add an exam**
@@ -391,10 +391,10 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: List all modules**
@@ -406,10 +406,10 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: List all lessons across modules**
@@ -421,10 +421,10 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: List all exams across modules**
@@ -436,10 +436,10 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: List lessons and exams for one module**
@@ -452,9 +452,9 @@ Use case ends.
 Use case ends.
 
 **Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: Delete a module**
@@ -466,10 +466,10 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 **Use case: Delete a lesson**
@@ -488,10 +488,10 @@ Use case ends.
 1. User requests to delete an exam associated with a module
 2. ModBook deletes the module and returns success
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 Use case ends.
@@ -503,10 +503,10 @@ Use case ends.
 1. User requests to edit a module
 2. ModBook edits the module at the specified index
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 Use case ends.
@@ -518,10 +518,10 @@ Use case ends.
 1. User requests to edit a lesson
 2. Modbook edits the lesson and returns success message
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 Use case ends.
@@ -533,10 +533,10 @@ Use case ends.
 1. User requests to edit an exam
 2. ModBook edits the exam and returns success message
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 Use case ends.
@@ -548,10 +548,10 @@ Use case ends.
 1. User requests for help
 2. ModBook presents a link to a help page
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
-&nbsp;&nbsp;&nbsp; 1a2. User enters new data  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
+&nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
 Use case ends.
@@ -563,9 +563,9 @@ Use case ends.
 1. User requests to clear all modules
 2. ModBook clears all modules
 
-**Extensions**  
-1a. User types in a wrong parameter  
-&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error  
+**Extensions**
+1a. User types in a wrong parameter
+&nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
 &nbsp;&nbsp;&nbsp; 1a2. User enters new data
 &nbsp;&nbsp;&nbsp; 1a3. Use case resumes from step 1
 
