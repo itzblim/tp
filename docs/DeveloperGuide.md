@@ -451,7 +451,7 @@ Use case ends.
 
 Use case ends.
 
-**Extensions**  
+**Extensions**
 1a. User types in a wrong parameter
 &nbsp;&nbsp;&nbsp; 1a1. ModBook outputs error message indicating parameter which has an error
 &nbsp;&nbsp;&nbsp; 1a2. User enters new data
