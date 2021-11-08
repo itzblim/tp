@@ -526,9 +526,9 @@ testers are expected to do more *exploratory* testing.
 3. Shutdown
     1. Either use the `exit` command or close the window to execute a shutdown.
 
-### Commands
-
-#### Adding a module
+## Commands
+### 1. `Add` Command
+#### 1.1 Adding a module
 
 1. Prerequisites:
    - ModBook should be in the Modules view. If ModBook is not in the Modules view, use the `list mod` command.
@@ -542,7 +542,7 @@ testers are expected to do more *exploratory* testing.
     - `add`<br>
         - Expected: No module is added as `mod` is not specified after command.
 
-#### Adding a lesson
+#### 1.2 Adding a lesson
 
 1. Prerequisites:
     - You must have at least one module in ModBook.
@@ -559,7 +559,7 @@ testers are expected to do more *exploratory* testing.
     - `add n/Tutorial d/Monday s/10:00 e/11:00 l/https://www.youtube.com/watch?v=8mL3L9hN2l4 v/COM1 ` <br>
         - Expected: No lesson is added as `lesson` is not specified after add command
 
-#### Adding an exam
+#### 1.3 Adding an exam
 
 1. Prerequisites:
     - You must have at least one module in ModBook.
@@ -577,7 +577,8 @@ testers are expected to do more *exploratory* testing.
     3. `add n/Final d/02/02/1999 s/10:00 e/11:00 l/https://www.youtube.com/watch?v=8mL3L9hN2l4 v/Field` <br>
         - Expected: No exam is added as `exam` is not specified after add command.
 
-#### Listing all modules
+### 2. `List` command
+#### 2.1 Listing all modules
 
 1. Prerequisites:
     - Can be executed from any view.
@@ -586,7 +587,7 @@ testers are expected to do more *exploratory* testing.
 3. Test case: `list` <br>
     - Expected: Missing parameters so nothing happens. Error details shown in the status message, with correct command format provided.
 
-#### Listing all lessons
+#### 2.2 Listing all lessons
 
 1. Prerequisites:
     - Can be executed from any view.
@@ -595,7 +596,7 @@ testers are expected to do more *exploratory* testing.
 3. Test case: `list` <br>
     - Expected: Missing parameters so nothing happens. Error details shown in the status message, with correct command format provided.
 
-#### Listing all exams
+#### 2.3 Listing all exams
 
 1. Prerequisites:
     - Can be executed from any view.
@@ -604,7 +605,8 @@ testers are expected to do more *exploratory* testing.
 3. Test case: `list` <br>
     - Expected: Missing parameters so nothing happens. Error details shown in the status message, with correct command format provided.
 
-#### Showing details of a module
+### 3. `Details` Command
+#### 3.1 Showing details of a module
 
 1. Prerequisites:
     - Can be executed from any view.
@@ -614,7 +616,8 @@ testers are expected to do more *exploratory* testing.
 3. Test case: `detail`
     - Expected: Missing parameters so nothing happens. Error details shown in the status message, with correct command format provided.
 
-#### Deleting a module
+### 4. `Delete` Command
+#### 4.1 Deleting a module
 
 1. Prerequisites:
     - You must have at least one module in ModBook.
@@ -629,7 +632,7 @@ testers are expected to do more *exploratory* testing.
     - `delete mod x` (where x is greater than the list size) <br>
         - Expected: No module is found at the provided index.
 
-#### Deleting a Lesson
+#### 4.2 Deleting a Lesson
 
 1. Prerequisites:
     - You must have at least one module in ModBook, which contains at least one lesson.
@@ -644,7 +647,7 @@ testers are expected to do more *exploratory* testing.
     - `delete lesson x` (where x is greater than the list size) <br>
         - Expected: No lesson is found at the provided index.
 
-#### Deleting an Exam
+#### 4.3 Deleting an Exam
 
 1. Prerequisites:
     - You must have at least one module in ModBook, which contains at least one exam.
@@ -659,7 +662,9 @@ testers are expected to do more *exploratory* testing.
     - `delete exam x` (where x is greater than the list size) <br>
         - Expected: No exam is found at the provided index.
 
-#### Editing a Module
+### 5. `Edit` Command
+#### 5.1 Editing a Module
+
 1. Prerequisites:
     - You must have at least one module in ModBook.
     - ModBook should be in the Modules view. If ModBook is not in the Modules view, use the `list mod` command.
@@ -674,7 +679,7 @@ testers are expected to do more *exploratory* testing.
     - `edit mod X c/CS1010S n/Programming Methodology` (where X is greater than the list size) <br>
         - Expected: No module is found at the provided index.
 
-#### Editing a Lesson
+#### 5.2 Editing a Lesson
 
 1. Prerequisites:
     - You must have at least one module in ModBook, which contains at least one lesson.
@@ -690,7 +695,7 @@ testers are expected to do more *exploratory* testing.
     - `edit lesson x n/Weekly Tutorial` (where x is greater than the list size) <br>
         - Expected: No lesson is found at the provided index.
 
-#### Editing an Exam
+#### 5.3 Editing an Exam
 
 1. Prerequisites:
     - You must have at least one module in ModBook, which contains at least one exam.
@@ -706,11 +711,11 @@ testers are expected to do more *exploratory* testing.
     - `edit exam x v/MPSH2` (where x is greater than the list size) <br>
         - Expected: No exam is found at the provided index.
 
-### Testing Commands based on GUI view
+### 6. Testing Commands based on GUI view
 
 Testing the validity of commands based on the GUI view of ModBook
 
-#### Modules View
+#### 6.1 Modules View
 1. Prerequisite:
     - ModBook should be in the Modules view. If ModBook is not in the Modules view, use the `list mod` command.
 2. For testing purposes, we assume there is no module in the list with code **CS1010S** or name **Programming Methodology**. This should be the case with the default data loaded into the application.
@@ -721,7 +726,7 @@ Testing the validity of commands based on the GUI view of ModBook
 5. Test case: `add lesson n/test d/monday s/10am e/11am`<br>
     - Expected: No lesson added. Error details shown in the status message, prompting users to use the `detail` command.
 
-#### Lessons View
+#### 6.2 Lessons View
 1. Prerequisite:
     - ModBook should be in the Lessons view. If ModBook is not in the Lessons view, use the `list lesson` command
 2. Test case: `list mod`<br>
@@ -731,7 +736,7 @@ Testing the validity of commands based on the GUI view of ModBook
 4. Test case: `add lesson n/test d/monday s/10am e/11am`<br>
     - Expected: No lesson added. Error details shown in the status message, prompting users to use the `detail` command.
 
-#### Exams View
+#### 6.3 Exams View
 1. Prerequisite:
     - ModBook should be in the Exams view. If ModBook is not in the Lessons view, use the `list exam` command
 2. Test case: `list mod`<br>
@@ -741,7 +746,7 @@ Testing the validity of commands based on the GUI view of ModBook
 4. Test case: `add lesson n/test d/monday s/10am e/11am`<br>
     - Expected: No lesson added. Error details shown in the status message, prompting users to use the `detail` command.
 
-#### Details View
+#### 6.4 Details View
 1. Prerequisites:
     - You must have at least one module in ModBook
     - ModBook should be in the Details view. If ModBook is not in the Details view, use the `detail` command with one of the modules already in ModBook
